@@ -10,3 +10,7 @@ html, body{
 #Main{
     padding: 0px 15px;
   }
+
+  .underline {
+    border-bottom-width: 2px;
+   }

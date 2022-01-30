@@ -1,10 +1,21 @@
 import React from 'react';
-import { Card,CardActions, Grid, Button, Typography, CardContent } from '@mui/material/';
+import { Card,CardActions, Grid, Button, Typography, CardContent, Box } from '@mui/material/';
 
 
-const Home = ({notes}) => {
-  console.log(notes)
+const Home = ({notes, updatingNote, deleteNote}) => {
+  // console.log(notes)
   return <div>
+    {notes.length === 0 ? <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="50vh"
+    >
+      <Typography>
+
+        <h1>Oops! Nothing Left!</h1>
+      </Typography>
+    </Box> :
     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
       {notes.map((elem, index)=>
       <Grid item xs={2} sm={4} md={4} key={index} >
@@ -18,12 +29,13 @@ const Home = ({notes}) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Delete</Button>
-          <Button size="small">Update</Button>
+          <Button size="small" color='error' onClick={()=>deleteNote(elem.id)}>Delete</Button>
+          <Button size="small" onClick={()=>updatingNote(elem.id)} >Update</Button>
         </CardActions>
       </Card>
     </Grid>)}
     </Grid>
+  }
   </div>
 };
 

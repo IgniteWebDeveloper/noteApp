@@ -22,7 +22,6 @@ const Nav = () => {
       </Typography>
       <Button><NavLink style={{textDecoration: 'none', color: 'white'}} color="inherit" exact to="/" >Home</NavLink></Button>
       <Button><NavLink style={{textDecoration: 'none', color: 'white'}} color="inherit" to="/create" >Create</NavLink></Button>
-      <Button><NavLink style={{textDecoration: 'none', color: 'white'}} color="inherit" to="/update" >Update</NavLink></Button>
       <Button><NavLink style={{textDecoration: 'none', color: 'white'}} color="inherit" to="/trash" >Trash</NavLink></Button>
     </Toolbar>
   </AppBar>

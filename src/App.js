@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Home from './Components/Home.js';
 import Create from './Components/Create.js';
 import Update from './Components/Update.js';
@@ -8,31 +8,73 @@ import Nav from './Components/Nav';
 import uuid from 'uuid-v4';
 
 
-
-
-
-
-
 const App = () => {
   const [note, noteList] = useState([
     {
       id: uuid(),
-      title: 'Adnan',
-      note: 'Full Stack Developer'
+      title: 'Jhon Doe',
+      note: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, iste?'
     }
   ])
-  
-  let onNewNoteHandler = () => {
-    console.log('hey')
+
+  const [trashNote, trashList] = useState([])
+  const navigate = useNavigate();
+
+
+  const onNewNoteHandler = (event) => {
+    event.preventDefault()
+    const copyNote = [...note]
+    const newNote = { id: uuid(), title: event.target.title.value, note: event.target.note.value }
+    copyNote.push(newNote)
+    noteList(copyNote)
+    navigate('/')
+  }
+
+  const onupdateNote = (id) => {
+    navigate('/update')
+    const noteIndex = note.findIndex(note => note.id === id)
+    console.log(noteIndex);
+  }
+
+  const onDeleteNote = (id) =>{
+    const noteIndex = note.findIndex(note => note.id === id)
+    const copyNote = [...note]
+    copyNote.splice(noteIndex, 1)
+    noteList(copyNote)
+
+    const trashedNote = note[noteIndex]
+    trashNote.push(trashedNote)
+    console.log(trashNote);
+  }
+  const onPermanentDelete = (id)=> {
+    const noteIndex = trashNote.findIndex(trashNote => trashNote.id === id)
+    const copyNote = [...trashNote]
+    copyNote.splice(noteIndex, 1)
+    trashList(copyNote)
+    console.log(copyNote);
+  }
+
+  const onRestoreNote = (id) => {
+    const foundNote = trashNote.find(trashNote => trashNote.id === id)
+    const copyNote = [...trashNote]
+    copyNote.push(foundNote)
+    noteList(copyNote)
+
+
+    console.log(foundNote)
   }
 
   return <div>
     <Nav />
     <Routes>
-      <Route exact path={`/`} element={<Home notes = {note} />} />
+      <Route
+        exact
+        path={`/`}
+        element={<Home notes={note} updatingNote={onupdateNote} deleteNote={onDeleteNote} />}
+      />
       <Route exact path={`/create`} element={<Create newNote={onNewNoteHandler} />} />
       <Route exact path={`/update`} element={<Update />} />
-      <Route exact path={`/trash`} element={<Trash />} />
+      <Route exact path={`/trash`} element={<Trash trashNote= {trashNote} permanentDelete={onPermanentDelete} restoreNote={onRestoreNote}/>} />
     </Routes>
   </div>
 };
