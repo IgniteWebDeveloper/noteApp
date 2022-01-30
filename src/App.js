@@ -18,7 +18,7 @@ const App = () => {
     }
   ])
 
-  const [updateNote, updateList] = useState([]);
+  const [updateNote, updateList] = useState(null);
 
   const [trashNote, trashList] = useState([]);
   const navigate = useNavigate();
@@ -35,14 +35,15 @@ const App = () => {
 
   const onupdateNote = (id) => {
     navigate('/update')
-    const copyNote = [...updateNote]
-    const noteIndex = note.findIndex(note => note.id === id)
-    updateNote.splice(noteIndex, 1)
-    updateList(updateNote)
+    // const copyNote = [...updateNote]
+    // const noteIndex = note.findIndex(note => note.id === id)
+    // updateNote.splice(noteIndex, 1)
+    // updateList(updateNote)
     
     const foundNote = note.find(note => note.id === id)
-    updateNote.push(foundNote)
-    updateList(updateNote)
+    updateList(foundNote)
+    // updateNote.push(foundNote)
+    // updateList(updateNote)
   };
 
   const onDeleteNote = (id) =>{
@@ -79,7 +80,7 @@ const App = () => {
       <Route
         exact
         path={`/`}
-        element={<Home notes={note} updatingNote={onupdateNote} deleteNote={onDeleteNote} />}
+        element={<Home ome notes={note} updatingNote={onupdateNote} deleteNote={onDeleteNote} />}
       />
       <Route exact path={`/create`} element={<Create newNote={onNewNoteHandler} />} />
       <Route exact path={`/update`} element={<Update updateNote={updateNote}/>} />

@@ -23,6 +23,9 @@ const Update = ({ notes,updateNote }) => {
   
   const navigate = useNavigate();
 
+  const onUpdateNote = () => {
+    console.log('first');
+  }
   let marginTop = {
     marginTop: '5rem'
   }
@@ -31,11 +34,11 @@ const Update = ({ notes,updateNote }) => {
   }
   return <div>
     <Grid container>
-      <form>
+      <form onSubmit={(event)=>onUpdateNote(event)}>
         <div id='Main'>
           <Grid sm={16} item>
-            <TextField name='title' fullWidth style={marginSingleTop} label="Title" value={updateNote[0].title} placeholder="Enter title" />
-            <TextField name='note' fullWidth style={marginSingleTop} label="Note" value={updateNote[0].note} multiline rows={2} min={20} placeholder="Enter note here. . ." />
+            <TextField name='title' fullWidth style={marginSingleTop} label="Title" value={updateNote.title} placeholder="Enter title" />
+            <TextField name='note' fullWidth style={marginSingleTop} label="Note" value={updateNote.note} multiline rows={2} min={20} placeholder="Enter note here. . ." />
           </Grid>
           <div style={{ marginTop: '4rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
             <Button style={{ display: 'flex',alignItems: 'center', marginRight: '25px' }} variant="contained" color='error'><NavLink exact to="/" style={{color:'white', textDecoration: 'none'}} >Cancel</NavLink></Button>
