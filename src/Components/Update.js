@@ -12,12 +12,14 @@ function HomeIcon(props) {
   );
 }
 
-const Update = ({ notes }) => {
+const Update = ({ notes,updateNote }) => {
 
   const [noteState, setnote] = useState({
     title: '',
     noteContent: ''
   })
+  console.log(updateNote);
+
   
   const navigate = useNavigate();
 
@@ -32,11 +34,11 @@ const Update = ({ notes }) => {
       <form>
         <div id='Main'>
           <Grid sm={16} item>
-            <TextField name='title' fullWidth style={marginSingleTop} label="Title" placeholder="Enter title" />
-            <TextField name='note' fullWidth style={marginSingleTop} label="Note" multiline rows={2} min={20} placeholder="Enter note here. . ." />
+            <TextField name='title' fullWidth style={marginSingleTop} label="Title" value={updateNote[0].title} placeholder="Enter title" />
+            <TextField name='note' fullWidth style={marginSingleTop} label="Note" value={updateNote[0].note} multiline rows={2} min={20} placeholder="Enter note here. . ." />
           </Grid>
           <div style={{ marginTop: '4rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-            <Button style={{ display: 'flex',alignItems: 'center', marginRight: '25px' }} variant="contained"><NavLink exact to="/" style={{color:'white', textDecoration: 'none'}} >Cancel</NavLink></Button>
+            <Button style={{ display: 'flex',alignItems: 'center', marginRight: '25px' }} variant="contained" color='error'><NavLink exact to="/" style={{color:'white', textDecoration: 'none'}} >Cancel</NavLink></Button>
             <Button variant="contained" type='submit' startIcon={<SaveIcon />}>Save</Button>
           </div>
         </div>

@@ -13,7 +13,7 @@ const Home = ({notes, updatingNote, deleteNote}) => {
     >
       <Typography>
 
-        <h1>Oops! Nothing Left!</h1>
+        <h1>Oops! There is no note you have made </h1>
       </Typography>
     </Box> :
     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>

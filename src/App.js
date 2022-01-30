@@ -6,6 +6,7 @@ import Update from './Components/Update.js';
 import Trash from './Components/Trash.js';
 import Nav from './Components/Nav';
 import uuid from 'uuid-v4';
+import { FourGMobiledata } from '@mui/icons-material';
 
 
 const App = () => {
@@ -17,7 +18,9 @@ const App = () => {
     }
   ])
 
-  const [trashNote, trashList] = useState([])
+  const [updateNote, updateList] = useState([]);
+
+  const [trashNote, trashList] = useState([]);
   const navigate = useNavigate();
 
 
@@ -28,13 +31,19 @@ const App = () => {
     copyNote.push(newNote)
     noteList(copyNote)
     navigate('/')
-  }
+  };
 
   const onupdateNote = (id) => {
     navigate('/update')
+    const copyNote = [...updateNote]
     const noteIndex = note.findIndex(note => note.id === id)
-    console.log(noteIndex);
-  }
+    updateNote.splice(noteIndex, 1)
+    updateList(updateNote)
+    
+    const foundNote = note.find(note => note.id === id)
+    updateNote.push(foundNote)
+    updateList(updateNote)
+  };
 
   const onDeleteNote = (id) =>{
     const noteIndex = note.findIndex(note => note.id === id)
@@ -45,14 +54,14 @@ const App = () => {
     const trashedNote = note[noteIndex]
     trashNote.push(trashedNote)
     console.log(trashNote);
-  }
+  };
   const onPermanentDelete = (id)=> {
     const noteIndex = trashNote.findIndex(trashNote => trashNote.id === id)
     const copyNote = [...trashNote]
     copyNote.splice(noteIndex, 1)
     trashList(copyNote)
     console.log(copyNote);
-  }
+  };
 
   const onRestoreNote = (id) => {
     const foundNote = trashNote.find(trashNote => trashNote.id === id)
@@ -62,7 +71,7 @@ const App = () => {
 
 
     console.log(foundNote)
-  }
+  };
 
   return <div>
     <Nav />
@@ -73,7 +82,7 @@ const App = () => {
         element={<Home notes={note} updatingNote={onupdateNote} deleteNote={onDeleteNote} />}
       />
       <Route exact path={`/create`} element={<Create newNote={onNewNoteHandler} />} />
-      <Route exact path={`/update`} element={<Update />} />
+      <Route exact path={`/update`} element={<Update updateNote={updateNote}/>} />
       <Route exact path={`/trash`} element={<Trash trashNote= {trashNote} permanentDelete={onPermanentDelete} restoreNote={onRestoreNote}/>} />
     </Routes>
   </div>
