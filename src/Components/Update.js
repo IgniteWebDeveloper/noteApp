@@ -12,7 +12,8 @@ function HomeIcon(props) {
   );
 }
 
-const Update = ({ notes,updateNote }) => {
+const Update = ({ notes,updateNote, onupdatingNote }) => {
+
 
   const [noteState, setnote] = useState({
     title: '',
@@ -21,6 +22,10 @@ const Update = ({ notes,updateNote }) => {
   console.log(updateNote);
 
   
+  const updatingNote = () => {
+    console.log('hqy')
+  }
+
   const navigate = useNavigate();
 
   const onUpdateNote = () => {
@@ -37,8 +42,8 @@ const Update = ({ notes,updateNote }) => {
       <form onSubmit={(event)=>onUpdateNote(event)}>
         <div id='Main'>
           <Grid sm={16} item>
-            <TextField name='title' fullWidth style={marginSingleTop} label="Title" value={updateNote.title} placeholder="Enter title" />
-            <TextField name='note' fullWidth style={marginSingleTop} label="Note" value={updateNote.note} multiline rows={2} min={20} placeholder="Enter note here. . ." />
+            <TextField name='title' fullWidth style={marginSingleTop} label="Title" value={updateNote.title} onChange={onupdatingNote} placeholder="Enter title" />
+            <TextField name='note' fullWidth style={marginSingleTop} label="Note" value={updateNote.note} onChange={onupdatingNote} multiline rows={2} min={20} placeholder="Enter note here. . ." />
           </Grid>
           <div style={{ marginTop: '4rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
             <Button style={{ display: 'flex',alignItems: 'center', marginRight: '25px' }} variant="contained" color='error'><NavLink exact to="/" style={{color:'white', textDecoration: 'none'}} >Cancel</NavLink></Button>

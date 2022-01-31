@@ -73,6 +73,9 @@ const App = () => {
 
     console.log(foundNote)
   };
+  const onUpddateNote = () => {
+    console.log('first');
+  }
 
   return <div>
     <Nav />
@@ -83,7 +86,7 @@ const App = () => {
         element={<Home ome notes={note} updatingNote={onupdateNote} deleteNote={onDeleteNote} />}
       />
       <Route exact path={`/create`} element={<Create newNote={onNewNoteHandler} />} />
-      <Route exact path={`/update`} element={<Update updateNote={updateNote}/>} />
+      <Route exact path={`/update`} element={<Update updateNote={updateNote} onupdatingNote={onUpddateNote}/>} />
       <Route exact path={`/trash`} element={<Trash trashNote= {trashNote} permanentDelete={onPermanentDelete} restoreNote={onRestoreNote}/>} />
     </Routes>
   </div>
